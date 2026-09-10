@@ -12,14 +12,14 @@
         {
             "kind": "main",
             "tag": "com-rohitchouhan-sap-timecountdown",
-            "url": "https:\/\/cdn.jsdelivr.net\/gh\/SAP-Custom-Widget\/TimeCountdown@1.0.0\/TimeCountdown.js",
+            "url": "https://cdn.jsdelivr.net/gh/Mikasa1995/TimeCountdown@main/TimeCountdown.js",
             "integrity": "",
             "ignoreIntegrity": true
         },
         {
             "kind": "builder",
             "tag": "com-rohitchouhan-sap-timecountdown-builder",
-            "url": "https:\/\/cdn.jsdelivr.net\/gh\/SAP-Custom-Widget\/TimeCountdown@1.0.0\/TimeCountdown_Builder.js",
+            "url": "https://cdn.jsdelivr.net/gh/Mikasa1995/TimeCountdown@main/TimeCountdown_Builder.js",
             "integrity": "",
             "ignoreIntegrity": true
         }
