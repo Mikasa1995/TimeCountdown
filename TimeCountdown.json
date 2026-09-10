@@ -1,13 +1,13 @@
 {
     "id": "com.rohitchouhan.sap.timecountdown",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "name": "Time Countdown",
-    "description": "A Sap custom widget to show time countdown in analytical application",
+    "description": "A custom widget to show a countdown with prefix text and style configuration",
     "newInstancePrefix": "TimeCountdown",
-    "vendor": "Rohit Chouhan",
+    "vendor": "Mikasa1995",
     "eula": "",
     "license": "",
-    "icon": "https:\/\/raw.githubusercontent.com\/SAP-Custom-Widget\/TimeCountdown\/main\/icon.png",
+    "icon": "https://raw.githubusercontent.com/Mikasa1995/TimeCountdown/main/icon.png",
     "webcomponents": [
         {
             "kind": "main",
@@ -26,47 +26,92 @@
     ],
     "properties": {
         "date": {
-            "description": "Date for Countdown",
+            "description": "Target date in ISO format",
             "type": "string",
             "default": "2099-01-01T00:00"
         },
-        "captionaftercountdown": {
-            "description": "Caption after Countdown finished",
+        "prefixText": {
+            "description": "Prefix text displayed above the countdown",
             "type": "string",
-            "default": "Welcome"
+            "default": "Time until project go-live"
+        },
+        "prefixColor": {
+            "description": "Color of the prefix text",
+            "type": "string",
+            "default": "#cccccc"
+        },
+        "countdownColor": {
+            "description": "Color of the countdown text",
+            "type": "string",
+            "default": "#ffffff"
+        },
+        "backgroundColor": {
+            "description": "Background color of the widget",
+            "type": "string",
+            "default": "#333333"
+        },
+        "captionaftercountdown": {
+            "description": "Text displayed after the countdown ends",
+            "type": "string",
+            "default": "Project is live"
         }
     },
     "methods": {
         "setDate": {
-            "description": "Set Date for Countdown",
+            "description": "Set the target date",
             "parameters": [
-                {
-                    "name": "date",
-                    "type": "string",
-                    "description": "Date for Countdown"
-                }
+                { "name": "date", "type": "string", "description": "Target date" }
             ],
             "body": "this.date = date;"
         },
         "getDate": {
             "returnType": "string",
-            "description": "Return Date for Countdown",
+            "description": "Get the target date",
             "body": "return this.date;"
         },
-        "setCaptionaftercountdown": {
-            "description": "Set Caption after Countdown finished",
+        "setPrefixText": {
+            "description": "Set the prefix text",
             "parameters": [
-                {
-                    "name": "captionaftercountdown",
-                    "type": "string",
-                    "description": "Caption after Countdown finished"
-                }
+                { "name": "prefixText", "type": "string", "description": "Prefix text" }
+            ],
+            "body": "this.prefixText = prefixText;"
+        },
+        "getPrefixText": {
+            "returnType": "string",
+            "description": "Get the prefix text",
+            "body": "return this.prefixText;"
+        },
+        "setPrefixColor": {
+            "description": "Set the prefix text color",
+            "parameters": [
+                { "name": "prefixColor", "type": "string", "description": "Color value" }
+            ],
+            "body": "this.prefixColor = prefixColor;"
+        },
+        "setCountdownColor": {
+            "description": "Set the countdown text color",
+            "parameters": [
+                { "name": "countdownColor", "type": "string", "description": "Color value" }
+            ],
+            "body": "this.countdownColor = countdownColor;"
+        },
+        "setBackgroundColor": {
+            "description": "Set the background color",
+            "parameters": [
+                { "name": "backgroundColor", "type": "string", "description": "Color value" }
+            ],
+            "body": "this.backgroundColor = backgroundColor;"
+        },
+        "setCaptionaftercountdown": {
+            "description": "Set the caption after countdown",
+            "parameters": [
+                { "name": "captionaftercountdown", "type": "string", "description": "Caption text" }
             ],
             "body": "this.captionaftercountdown = captionaftercountdown;"
         },
         "getCaptionaftercountdown": {
             "returnType": "string",
-            "description": "Return Caption after Countdown finished",
+            "description": "Get the caption after countdown",
             "body": "return this.captionaftercountdown;"
         }
     },
