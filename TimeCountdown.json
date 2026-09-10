@@ -1,9 +1,9 @@
 {
-    "id": "com.rohitchouhan.sap.timecountdown",
-    "version": "1.2.0",
+    "id": "com.mikasa1995.sap.timecountdown",
+    "version": "1.0.0",
     "name": "Time Countdown",
     "description": "A custom widget to show a countdown with prefix text and style configuration",
-    "newInstancePrefix": "TimeCountdown",
+    "newInstancePrefix": "MikasaCountdown",
     "vendor": "Mikasa1995",
     "eula": "",
     "license": "",
@@ -11,14 +11,14 @@
     "webcomponents": [
         {
             "kind": "main",
-            "tag": "com-rohitchouhan-sap-timecountdown",
+            "tag": "com-mikasa1995-sap-timecountdown",
             "url": "https://cdn.jsdelivr.net/gh/Mikasa1995/TimeCountdown@main/TimeCountdown.js",
             "integrity": "",
             "ignoreIntegrity": true
         },
         {
             "kind": "builder",
-            "tag": "com-rohitchouhan-sap-timecountdown-builder",
+            "tag": "com-mikasa1995-sap-timecountdown-builder",
             "url": "https://cdn.jsdelivr.net/gh/Mikasa1995/TimeCountdown@main/TimeCountdown_Builder.js",
             "integrity": "",
             "ignoreIntegrity": true
