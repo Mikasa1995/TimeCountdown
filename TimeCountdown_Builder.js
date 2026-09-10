@@ -32,35 +32,30 @@
         border-radius: 4px;
         cursor: pointer;
       }
-      .row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
     </style>
     <div class="field">
-      <label>目标日期 (ISO格式)</label>
+      <label>Target Date (ISO)</label>
       <input id="dateInput" type="text" placeholder="2026-12-31T23:59:59" />
     </div>
     <div class="field">
-      <label>前缀文案</label>
-      <input id="prefixInput" type="text" placeholder="距项目上线还剩" />
+      <label>Prefix Text</label>
+      <input id="prefixInput" type="text" placeholder="Time until go-live" />
     </div>
     <div class="field">
-      <label>前缀文案颜色</label>
+      <label>Prefix Color</label>
       <input id="prefixColorInput" type="color" />
     </div>
     <div class="field">
-      <label>倒计时颜色</label>
+      <label>Countdown Color</label>
       <input id="countdownColorInput" type="color" />
     </div>
     <div class="field">
-      <label>背景颜色</label>
+      <label>Background Color</label>
       <input id="bgColorInput" type="color" />
     </div>
     <div class="field">
-      <label>倒计时结束文案</label>
-      <input id="captionInput" type="text" placeholder="项目已上线" />
+      <label>Caption After Countdown</label>
+      <input id="captionInput" type="text" placeholder="Project is live" />
     </div>
   `;
 
@@ -100,11 +95,11 @@
         }
       };
       setVal("#dateInput", this._props.date, "2099-01-01T00:00");
-      setVal("#prefixInput", this._props.prefixText, "距项目上线还剩");
+      setVal("#prefixInput", this._props.prefixText, "Time until go-live");
       setVal("#prefixColorInput", this._props.prefixColor, "#cccccc");
       setVal("#countdownColorInput", this._props.countdownColor, "#ffffff");
       setVal("#bgColorInput", this._props.backgroundColor, "#333333");
-      setVal("#captionInput", this._props.captionaftercountdown, "项目已上线");
+      setVal("#captionInput", this._props.captionaftercountdown, "Project is live");
     }
   }
 
