@@ -7,7 +7,7 @@
     "vendor": "Mikasa1995",
     "eula": "",
     "license": "",
-    "icon": "https://raw.githubusercontent.com/Mikasa1995/TimeCountdown/main/icon.png",
+    "icon": "https://cdn.jsdelivr.net/gh/Mikasa1995/TimeCountdown@main/icon.png",
     "webcomponents": [
         {
             "kind": "main",
