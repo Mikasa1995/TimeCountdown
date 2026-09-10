@@ -1,142 +1,115 @@
-
-(function () {
-      let template = document.createElement("template");
-      template.innerHTML = `
-<br>
-<style>
-    #form {
-        font-family: Arial, sans-serif;
-        width: 400px;
-        margin: 0 auto;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 10px;
-    }
-
-    td {
-        padding: 1px;
-        text-align: left;
-        font-size: 13px;
-    }
-
-    input {
-        width: 100%;
+(function() {
+  let template = document.createElement("template");
+  template.innerHTML = `
+    <style>
+      :host {
+        display: block;
         padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
+        font-family: sans-serif;
         font-size: 13px;
+      }
+      .field {
+        margin-bottom: 12px;
+      }
+      label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: bold;
+        color: #333;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 6px;
         box-sizing: border-box;
-        margin-bottom: 10px;
-    }
-
-
-    input[type="color"] {
-	-webkit-appearance: none;
-	border: none;
-	width: 32px;
-	height: 32px;
-}
-input[type="color"]::-webkit-color-swatch-wrapper {
-	padding: 0;
-}
-input[type="color"]::-webkit-color-swatch {
-	border: none;
-}
-
-
-    select {
-        width: 100%;
-        padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
-        font-size: 13px;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-    }
-
-    input[type="submit"] {
-        background-color: #487cac;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      input[type="color"] {
+        width: 40px;
+        height: 28px;
+        padding: 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
         cursor: pointer;
-        width: 100%;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    </style>
+    <div class="field">
+      <label>目标日期 (ISO格式)</label>
+      <input id="dateInput" type="text" placeholder="2026-12-31T23:59:59" />
+    </div>
+    <div class="field">
+      <label>前缀文案</label>
+      <input id="prefixInput" type="text" placeholder="距项目上线还剩" />
+    </div>
+    <div class="field">
+      <label>前缀文案颜色</label>
+      <input id="prefixColorInput" type="color" />
+    </div>
+    <div class="field">
+      <label>倒计时颜色</label>
+      <input id="countdownColorInput" type="color" />
+    </div>
+    <div class="field">
+      <label>背景颜色</label>
+      <input id="bgColorInput" type="color" />
+    </div>
+    <div class="field">
+      <label>倒计时结束文案</label>
+      <input id="captionInput" type="text" placeholder="项目已上线" />
+    </div>
+  `;
+
+  class CountdownBuilder extends HTMLElement {
+    constructor() {
+      super();
+      let shadowRoot = this.attachShadow({ mode: "open" });
+      shadowRoot.appendChild(template.content.cloneNode(true));
+      this._props = {};
+
+      const bind = (id, prop, eventType) => {
+        const el = shadowRoot.querySelector(id);
+        el.addEventListener(eventType || "change", () => {
+          this.dispatchEvent(new CustomEvent("propertiesChanged", {
+            detail: { properties: { [prop]: el.value } }
+          }));
+        });
+      };
+
+      bind("#dateInput", "date", "change");
+      bind("#prefixInput", "prefixText", "change");
+      bind("#prefixColorInput", "prefixColor", "input");
+      bind("#countdownColorInput", "countdownColor", "input");
+      bind("#bgColorInput", "backgroundColor", "input");
+      bind("#captionInput", "captionaftercountdown", "change");
     }
 
-    #label {
-        width: 140px;
+    onCustomWidgetBeforeUpdate(changedProperties) {
+      this._props = { ...this._props, ...changedProperties };
     }
-</style>
-<form id="form">
-    <table>
-        <tr>
-                <td>
-                <p>Date for Countdown</p>
-                <input id="builder_date" type="datetime-local" placeholder="Enter Date for Countdown">
-                </td>
-                </tr>
-                <tr>
-                <td>
-                <p>Caption after Countdown finished</p>
-                <input id="builder_captionaftercountdown" type="text" placeholder="Enter Caption after Countdown finished">
-                </td>
-                </tr>
-                
-    </table>
-    <input value="Update Settings" type="submit">
-    <br>
-    <p>Developed by <a target="_blank" href="https://linkedin.com/in/itsrohitchouhan">Rohit Chouhan</a></p>
-</form>
-`;
-      class TimeCountdownBuilderPanel extends HTMLElement {
-         constructor() {
-            super();
-            this._shadowRoot = this.attachShadow({
-               mode: "open"
-            });
-            this._shadowRoot.appendChild(template.content.cloneNode(true));
-            this._shadowRoot
-               .getElementById("form")
-               .addEventListener("submit", this._submit.bind(this));
-         }
-         _submit(e) {
-               e.preventDefault();
-               this.dispatchEvent(
-                  new CustomEvent("propertiesChanged", {
-                     detail: {
-                        properties: {
-                           date: this.date,captionaftercountdown: this.captionaftercountdown
-                        },
-                     },
-                  })
-               );
-            }
 
-            set date(_date) {
-            this._shadowRoot.getElementById("builder_date").value = _date;
-         }
-         get date() {
-            return this._shadowRoot.getElementById("builder_date").value;
-         }
+    onCustomWidgetAfterUpdate(changedProperties) {
+      const shadowRoot = this.shadowRoot;
+      const setVal = (id, val, def) => {
+        if (val !== undefined) {
+          shadowRoot.querySelector(id).value = val || def;
+        }
+      };
+      setVal("#dateInput", this._props.date, "2099-01-01T00:00");
+      setVal("#prefixInput", this._props.prefixText, "距项目上线还剩");
+      setVal("#prefixColorInput", this._props.prefixColor, "#cccccc");
+      setVal("#countdownColorInput", this._props.countdownColor, "#ffffff");
+      setVal("#bgColorInput", this._props.backgroundColor, "#333333");
+      setVal("#captionInput", this._props.captionaftercountdown, "项目已上线");
+    }
+  }
 
-         set captionaftercountdown(_captionaftercountdown) {
-            this._shadowRoot.getElementById("builder_captionaftercountdown").value = _captionaftercountdown;
-         }
-         get captionaftercountdown() {
-            return this._shadowRoot.getElementById("builder_captionaftercountdown").value;
-         }
-
-            }
-   customElements.define("com-rohitchouhan-sap-timecountdown-builder", 
-      TimeCountdownBuilderPanel
-   );
+  customElements.define(
+    "com-rohitchouhan-sap-timecountdown-builder",
+    CountdownBuilder
+  );
 })();
