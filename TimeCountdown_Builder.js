@@ -109,7 +109,7 @@
   }
 
   customElements.define(
-    "com-rohitchouhan-sap-timecountdown-builder",
+    "com-mikasa1995-sap-timecountdown-builder",
     CountdownBuilder
   );
 })();
