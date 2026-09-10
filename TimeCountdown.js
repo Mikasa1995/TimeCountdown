@@ -109,7 +109,50 @@
             prefixEl.style.fontSize = prefixFontSize + "px";
             countdownEl.style.fontSize = countdownFontSize + "px";
         }
-      
+
+        /* async initMain() {
+          const date = this._props.date;
+          const caption = this._props.captionaftercountdown || "已结束";
+          const prefixText = this._props.prefixText || "距项目上线还剩";
+          const prefixColor = this._props.prefixColor || "#cccccc";
+          const countdownColor = this._props.countdownColor || "#ffffff";
+          const backgroundColor = this._props.backgroundColor || "#333333";
+    
+          const prefixEl = this.shadowRoot.querySelector("#prefix");
+          const countdownEl = this.shadowRoot.querySelector("#countdown");
+          const divEl = this.shadowRoot.querySelector("#time_div");
+    
+          // 应用样式
+          prefixEl.textContent = prefixText;
+          prefixEl.style.color = prefixColor;
+          countdownEl.style.color = countdownColor;
+          divEl.style.backgroundColor = backgroundColor;
+    
+          if (this._countdownInterval) {
+            clearInterval(this._countdownInterval);
+          }
+    
+          const updateCountdown = () => {
+            const timeRemaining = Date.parse(date) - Date.parse(new Date());
+    
+            if (isNaN(timeRemaining)) {
+              countdownEl.innerHTML = "日期格式错误";
+            } else if (timeRemaining < 0) {
+              countdownEl.innerHTML = caption;
+            } else {
+              const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+              const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+              const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
+              const seconds = Math.floor((timeRemaining / 1000) % 60);
+              countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+    
+            this._adjustFontSize();
+          };
+    
+          updateCountdown();
+          this._countdownInterval = setInterval(updateCountdown, 1000);
+        } */
         async initMain() {
             // ★★★ 修改点：支持从 HTML 属性读取作为 fallback ★★★
             const date = this._props.date || this.getAttribute("date") || "2099-01-01T00:00";
@@ -163,7 +206,7 @@
     }
 
     customElements.define(
-        "com-rohitchouhan-sap-timecountdown",
+        "com-mikasa1995-sap-timecountdown",
         CountdownWidget
     );
 })();
